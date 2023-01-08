@@ -1,0 +1,26 @@
+Package: tidyexplorer
+Title: Exploratory Data Analysis
+Version: 0.0.0.9000
+Authors@R: 
+    person("Francisco", "Zambrano", , "first.last@example.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Exploratory Data Analysis. Exploration of Numeric variables. Exploration of categorical variables. Exploration of outliers. Visualization of outliers. Descriptive Statistics. Visualization of normality. EDA based on target variable.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports: 
+    dplyr,
+    ggplot2,
+    ggpubr,
+    ggthemes,
+    magrittr,
+    moments,
+    plotly,
+    rlang,
+    scales,
+    stats,
+    tibble,
+    tidyr,
+    tidyselect,
+    tidytext
