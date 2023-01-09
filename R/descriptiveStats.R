@@ -53,13 +53,14 @@ descriptiveStats <- function(.data) {
           p25 = ~ stats::quantile(.x,  probs = 0.25),
           p50 = ~ stats::quantile(.x,  probs = 0.50),
           p75 = ~ stats::quantile(.x,  probs = 0.75)
-        )
+        ),
+        .names = "{.col}%%{.fn}"
       )
     ) %>%
     tidyr::pivot_longer(
       !any_of(group_vars),
       names_to = c("set", ".value"),
-      names_pattern = "(.*)_(.*)"
+      names_pattern = "(.*)%%(.*)"
     ) %>%
     dplyr::select(variable = set, dplyr::everything()) %>%
     dplyr::arrange(variable) %>% dplyr::ungroup()

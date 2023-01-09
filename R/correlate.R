@@ -41,7 +41,8 @@ correlate <- function(.data, method = "pearson"){
     dplyr::filter(cor != is.na(cor)) %>%
     dplyr::mutate(variables = paste(var1, "-", var2)) %>%
     dplyr::arrange(dplyr::desc(cor)) %>%
-    dplyr::mutate(variables = stats::reorder(variables, cor))
+    dplyr::mutate(variables = stats::reorder(variables, cor)) %>%
+    dplyr::select(var1, var2, variables, cor)
 
   return(df)
 

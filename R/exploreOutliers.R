@@ -51,12 +51,14 @@ exploreOutliers <- function(.data) {
           meanWithoutOutliers = ~ round(mean(
             ifelse(.x %in% grDevices::boxplot.stats(.x)$out, NA, .x),
             na.rm = TRUE), 2)
-        )),
+        ),
+        .names = "{.col}%%{.fn}"
+      ),
       .groups = 'keep') %>%
     tidyr::pivot_longer(
       !dplyr::any_of(group_vars),
       names_to = c("set", ".value"),
-      names_pattern = "(.*)_(.*)"
+      names_pattern = "(.*)%%(.*)"
     ) %>%
     dplyr::select(variable = set, dplyr::everything()) %>%
     dplyr::arrange(variable) %>% dplyr::ungroup()

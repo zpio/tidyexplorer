@@ -37,14 +37,15 @@ exploreData <- function(.data) {
           NAsPct = ~ round(sum(is.na(.x) | is.null(.x))/length(.x),3),
           unique = ~ length(unique(.x)),
           uniquePct = ~ round(length(unique(.x))/length(.x),3)
-        )
+        ),
+        .names = "{.col}%%{.fn}"
       )
     ) %>%
     tibble::rownames_to_column() %>%
     tidyr::pivot_longer(
       !c(rowname),
       names_to = c("set", ".value"),
-      names_pattern = "(.*)_(.*)"
+      names_pattern = "(.*)%%(.*)"
     ) %>%
     dplyr::select(variable = set, dplyr::everything(), -rowname) %>%
     dplyr::arrange(variable) %>% dplyr::ungroup()
