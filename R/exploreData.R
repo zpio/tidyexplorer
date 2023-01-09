@@ -31,7 +31,7 @@ exploreData <- function(.data) {
       dplyr::across(
         dplyr::everything(),
         list(
-          type = ~ class(.x),
+          type = ~ class(.x)[1],
           n = ~ length(.x),
           NAs = ~ sum(is.na(.x) | is.null(.x)),
           NAsPct = ~ round(sum(is.na(.x) | is.null(.x))/length(.x),3),
