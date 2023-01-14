@@ -25,8 +25,8 @@ plotMissing <- function(.data,
         list(
           type = ~ class(.x)[1],
           n = ~ length(.x),
-          NAs = ~ sum(is.na(.x) | is.null(.x) | .x==""),
-          NAsPct = ~ round(sum(is.na(.x) | is.null(.x) | .x=="")/length(.x),3),
+          NAs = ~ sum(is.na(.x) | as.character(.x)==""),
+          NAsPct = ~ round(sum(is.na(.x) | as.character(.x)=="")/length(.x),3),
           unique = ~ length(unique(.x)),
           uniquePct = ~ round(length(unique(.x))/length(.x),3)
         ),
@@ -42,7 +42,7 @@ plotMissing <- function(.data,
     dplyr::select(variable = set, dplyr::everything(), -rowname) %>%
     dplyr::mutate(variable = stats::reorder(variable, NAsPct),
                   pct = sprintf("%.1f%%", NAsPct*100)) %>%
-    dplyr::ungroup()
+    dplyr::arrange(-NAsPct)
 
   pal_discrete <-
     rep(ggthemes::ggthemes_data$tableau$`color-palettes`$regular$`Tableau 10`$value, 10)
@@ -89,5 +89,7 @@ plotMissing <- function(.data,
 
     return(p)
   }
+
+  return(dfDescription)
 
 }
