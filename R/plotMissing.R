@@ -40,9 +40,11 @@ plotMissing <- function(.data,
       names_pattern = "(.*)%%(.*)"
     ) %>%
     dplyr::select(variable = set, dplyr::everything(), -rowname) %>%
-    dplyr::mutate(variable = stats::reorder(variable, NAsPct),
-                  pct = sprintf("%.1f%%", NAsPct*100)) %>%
-    dplyr::arrange(-NAsPct)
+    dplyr::arrange(NAsPct) %>%
+    dplyr::mutate(
+      variable = stats::reorder(variable, -NAsPct),
+      pct = sprintf("%.1f%%", NAsPct*100)
+    )
 
   pal_discrete <-
     rep(ggthemes::ggthemes_data$tableau$`color-palettes`$regular$`Tableau 10`$value, 10)
@@ -52,7 +54,7 @@ plotMissing <- function(.data,
     ggplot2::ggplot(
       ggplot2::aes(x = NAsPct, y = variable, fill=variable, label = pct)
     ) +
-    ggplot2::geom_col() +
+    ggplot2::geom_bar(stat = "identity") +
     ggplot2::scale_x_continuous(labels = scales::percent, limits=c(0,1))+
     ggplot2::scale_fill_manual(values = pal_discrete, guide = "none")+
     ggplot2::labs(title = "Percentage of Missing Values", x = "", y = "")+
@@ -89,7 +91,5 @@ plotMissing <- function(.data,
 
     return(p)
   }
-
-  return(dfDescription)
 
 }
