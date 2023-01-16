@@ -37,7 +37,9 @@ exploreOutliers <- function(.data) {
         dplyr::everything(),
         list(
           n = ~ length(.x),
-          na = ~ sum(is.na(.x)),
+
+          na = ~ sum(is.na(.x) | as.character(.x)==""),
+
           outliersCount = ~ length(grDevices::boxplot.stats(.x)$out),
 
           outliersRatio = ~ round(length(grDevices::boxplot.stats(.x)$out)/length(.x), 3),

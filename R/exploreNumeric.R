@@ -47,8 +47,8 @@ exploreNumeric <- function(.data) {
         dplyr::everything(),
         list(
           n = ~ length(.x),
-          na = ~ sum(is.na(.x)),
-          naPct = ~ round(sum(is.na(.x))/length(.x), 3),
+          na = ~ sum(is.na(.x) | as.character(.x)==""),
+          naPct = ~ round(sum(is.na(.x) | as.character(.x)=="")/length(.x),3),
           min = ~ min(.x, na.rm = TRUE),
           max = ~ max(.x, na.rm = TRUE),
           Q1 = ~ stats::quantile(.x, 0.25, na.rm = TRUE),

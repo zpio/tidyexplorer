@@ -33,8 +33,8 @@ exploreData <- function(.data) {
         list(
           type = ~ class(.x)[1],
           n = ~ length(.x),
-          NAs = ~ sum(is.na(.x) | is.null(.x)),
-          NAsPct = ~ round(sum(is.na(.x) | is.null(.x))/length(.x),3),
+          NAs = ~ sum(is.na(.x) | as.character(.x)==""),
+          NAsPct = ~ round(sum(is.na(.x) | as.character(.x)=="")/length(.x),3),
           unique = ~ length(unique(.x)),
           uniquePct = ~ round(length(unique(.x))/length(.x),3)
         ),
