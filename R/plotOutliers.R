@@ -101,7 +101,7 @@ plotOutliers <- function(.data, interactive=FALSE) {
       # errorbar
       ggplot2::stat_boxplot(
         ggplot2::aes(x=!!var, y = -0.2, color=name),
-        geom = "errorbar", width = 0.15
+        geom = "errorbar", width = 0.10
       )+
 
       # box

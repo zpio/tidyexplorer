@@ -37,6 +37,7 @@ plotRaincloud <- function(.data,
     stop(call. = FALSE, "Please supply 1 numeric column")
   }
 
+
   pal_discrete <-
     rep(ggthemes::ggthemes_data$tableau$`color-palettes`$regular$`Tableau 10`$value, 10)
 
@@ -85,7 +86,7 @@ plotRaincloud <- function(.data,
       ggplot2::stat_boxplot(
         data = df_num,
         ggplot2::aes(x = !!var, y = -0.2),
-        geom = "errorbar", width = 0.15, size = 1, color=color_ind
+        geom = "errorbar", width = 0.10, size = 1, color=color_ind
       )+
       # box
       ggplot2::geom_rect(
@@ -98,7 +99,7 @@ plotRaincloud <- function(.data,
         ),
         fill = fill_ind,
         color = color_ind,
-        alpha = 0.9,
+        alpha = 1,
         size = 1
       )+
       ggplot2::geom_rect(
@@ -111,7 +112,7 @@ plotRaincloud <- function(.data,
         ),
         fill = fill_ind,
         color = color_ind,
-        alpha = 0.9,
+        alpha = 1,
         size = 1
       )+
       # vertical line
@@ -119,14 +120,13 @@ plotRaincloud <- function(.data,
         data = box,
         ggplot2::aes(
           x = median,
-          #color = Species,
           xend = median,
           y = - 0.3,
           yend = - 0.1
         ),
         color = "white",
-        size = 0.8,
-        alpha = 0.8
+        size = 0.5,
+        alpha = 1
       )+
       ggplot2::labs(y="", title = paste("Distribution of", name))+
       ggplot2::theme_minimal()+
@@ -185,7 +185,7 @@ plotRaincloud <- function(.data,
       ggplot2::stat_boxplot(
         data = .data,
         ggplot2::aes(x = !!var, y = -0.2, color=!!group_vars),
-        geom = "errorbar", width = 0.15, size = 1
+        geom = "errorbar", width = 0.10, size = 1
       )+
       # box
       ggplot2::geom_rect(
@@ -198,7 +198,7 @@ plotRaincloud <- function(.data,
           fill = !!group_vars,
           color = !!group_vars
         ),
-        alpha = 0.9,
+        alpha = 1,
         size = 1
       )+
       ggplot2::geom_rect(
@@ -211,7 +211,7 @@ plotRaincloud <- function(.data,
           fill = !!group_vars,
           color = !!group_vars
         ),
-        alpha = 0.9,
+        alpha = 1,
         size = 1
       )+
       # vertical line
@@ -219,14 +219,13 @@ plotRaincloud <- function(.data,
         data = box,
         ggplot2::aes(
           x = median,
-          #color = Species,
           xend = median,
           y = - 0.3,
-          yend = - 0.1
+          yend = - 0.1,
         ),
         color = "white",
-        size = 0.8,
-        alpha = 0.8
+        size = 0.5,
+        alpha = 1
       )+
       ggplot2::facet_grid(dplyr::vars(!!group_vars), scales = 'free_y')+
       ggplot2::scale_fill_manual(values = pal_discrete, guide="none")+
