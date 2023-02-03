@@ -80,7 +80,7 @@ plotScatter <- function(.data,
   }
 
   p1 <- p1 +
-    ggplot2::labs(title = "Numerical Variables")+
+    ggplot2::labs(title = "Numerical Variables", x = "")+
     ggplot2::scale_x_continuous(labels = scales::comma) +
     ggplot2::facet_wrap(dplyr::vars(variable), scales = "free", ncol = ncol_facet)+
     ggplot2::theme_minimal()+
