@@ -14,6 +14,7 @@ Imports:
     ggplot2,
     ggpubr,
     ggthemes,
+    lubridate,
     magrittr,
     moments,
     plotly,
