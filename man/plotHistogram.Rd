@@ -6,17 +6,19 @@
 \usage{
 plotHistogram(
   .data,
+  fill_var = NULL,
   interactive = FALSE,
   facet_grid = FALSE,
   ncol_facet = 3,
   bins = 30,
   alpha = 1,
-  alpha_w_group = 0.7,
   scales = "free"
 )
 }
 \arguments{
 \item{.data}{A \code{tibble} or \code{data.frame}}
+
+\item{fill_var}{A categorical column that can be used to change the color}
 
 \item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
 
@@ -27,8 +29,6 @@ plotHistogram(
 \item{bins}{Number of bins}
 
 \item{alpha}{alpha}
-
-\item{alpha_w_group}{alpha f}
 
 \item{scales}{scales "free", "free_x", "free_y"}
 }
@@ -50,5 +50,11 @@ iris \%>\%
 
 mtcars \%>\%
    plotHistogram()
+
+iris \%>\%
+   plotHistogram(fill_var = Species, alpha = 0.7)
+
+iris \%>\% select(Sepal.Length, Species) \%>\%
+   plotHistogram(fill_var = Species, facet_grid = TRUE)
 
 }

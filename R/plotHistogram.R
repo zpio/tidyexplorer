@@ -1,12 +1,12 @@
 #' Title
 #'
 #' @param .data A `tibble` or `data.frame`
+#' @param fill_var A categorical column that can be used to change the color
 #' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
 #' @param facet_grid facet grid
 #' @param ncol_facet Number of facet columns
 #' @param bins Number of bins
 #' @param alpha alpha
-#' @param alpha_w_group alpha f
 #' @param scales scales "free", "free_x", "free_y"
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
@@ -24,22 +24,44 @@
 #' mtcars %>%
 #'    plotHistogram()
 #'
+#' iris %>%
+#'    plotHistogram(fill_var = Species, alpha = 0.7)
+#'
+#' iris %>% select(Sepal.Length, Species) %>%
+#'    plotHistogram(fill_var = Species, facet_grid = TRUE)
+#'
 #' @export
 plotHistogram <- function(.data,
+                          fill_var = NULL,
                           interactive = FALSE,
                           facet_grid = FALSE,
                           ncol_facet = 3,
                           bins = 30,
                           alpha = 1,
-                          alpha_w_group = 0.7,
-                          scales = "free"
-) {
+                          scales = "free") {
 
   if (!is.data.frame(.data)) {
     stop(call. = FALSE, ".data is not a data-frame or tibble. Please supply a data.frame or tibble.")
   }
 
-  df_num <- .data %>% dplyr::select(c(tidyselect::where(~ is.numeric(.x))))
+  fill  <- rlang::enquo(fill_var)
+
+  if (!rlang::quo_is_null(fill)) {
+
+    df_fill <- .data %>%  dplyr::select(!!fill) %>%
+      dplyr::select(c(tidyselect::where(~ is.character(.x)|is.factor(.x)|is.ordered(.x))))
+
+    if (length(df_fill)==0){
+      stop(call. = FALSE, "Please supply a data-frame or tibble with a categorical column")
+    } else {
+      data <- .data %>% dplyr::group_by(!!fill)
+    }
+
+  } else {
+    data <- .data
+  }
+
+  df_num <- data %>% dplyr::select(c(tidyselect::where(~ is.numeric(.x))))
 
   if (length(df_num)==0){
     stop(call. = FALSE, "Please supply a data-frame or tibble with a numeric column")
@@ -65,7 +87,7 @@ plotHistogram <- function(.data,
       ggplot2::ggplot()+
       ggplot2::geom_histogram(
         ggplot2::aes(x = value, fill=variable),
-        alpha = alpha, bins = bins
+        alpha = alpha, bins = bins, color = "white"
       )+
       ggplot2::scale_fill_manual(values = pal_discrete, guide="none")+
       ggplot2::scale_color_manual(values = pal_discrete, guide="none")+
@@ -98,7 +120,7 @@ plotHistogram <- function(.data,
       ggplot2::ggplot()+
       ggplot2::geom_histogram(
         ggplot2::aes(x = value, fill = !!group_var),
-        alpha = alpha_w_group, bins = bins
+        alpha = alpha, bins = bins, color = "white"
       )+
       ggplot2::facet_wrap(dplyr::vars(variable), scales = scales, ncol = ncol_facet) +
       ggplot2::scale_x_continuous(labels = scales::comma)+
@@ -122,7 +144,7 @@ plotHistogram <- function(.data,
         ggplot2::ggplot()+
         ggplot2::geom_histogram(
           ggplot2::aes(x = !!var_x, fill=!!group_var),
-          alpha = alpha, bins = bins
+          alpha = alpha, bins = bins, color = "white"
         )+
         ggplot2::scale_x_continuous(labels = scales::comma) +
         ggplot2::scale_fill_manual(values = pal_discrete, guide='none')+
