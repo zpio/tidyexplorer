@@ -4,10 +4,18 @@
 \alias{plotDensity}
 \title{Visualize Distributions}
 \usage{
-plotDensity(.data, interactive = FALSE, facet_grid = FALSE, ncol_facet = 3)
+plotDensity(
+  .data,
+  fill_var = NULL,
+  interactive = FALSE,
+  facet_grid = FALSE,
+  ncol_facet = 3
+)
 }
 \arguments{
 \item{.data}{A \code{tibble} or \code{data.frame}}
+
+\item{fill_var}{A categorical column that can be used to change the color}
 
 \item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
 
@@ -33,5 +41,12 @@ iris \%>\%
 
 mtcars \%>\%
    plotDensity()
+
+iris \%>\%
+   plotDensity(fill_var = Species)
+
+iris \%>\%
+   select(Sepal.Width, Species) \%>\%
+   plotDensity(fill_var = Species, facet_grid = TRUE)
 
 }

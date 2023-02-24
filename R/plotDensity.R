@@ -1,6 +1,7 @@
 #' Visualize Distributions
 #'
 #' @param .data A `tibble` or `data.frame`
+#' @param fill_var A categorical column that can be used to change the color
 #' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
 #' @param facet_grid facet
 #' @param ncol_facet Number of facet columns
@@ -20,8 +21,16 @@
 #' mtcars %>%
 #'    plotDensity()
 #'
+#' iris %>%
+#'    plotDensity(fill_var = Species)
+#'
+#' iris %>%
+#'    select(Sepal.Width, Species) %>%
+#'    plotDensity(fill_var = Species, facet_grid = TRUE)
+#'
 #' @export
 plotDensity <- function(.data,
+                        fill_var = NULL,
                         interactive = FALSE,
                         facet_grid = FALSE,
                         ncol_facet = 3) {
@@ -30,7 +39,15 @@ plotDensity <- function(.data,
     stop(call. = FALSE, ".data is not a data-frame or tibble. Please supply a data.frame or tibble.")
   }
 
-  df_num <- .data %>% dplyr::select(c(tidyselect::where(~ is.numeric(.x))))
+  fill  <- rlang::enquo(fill_var)
+
+  if (!rlang::quo_is_null(fill)) {
+    data <- .data %>% dplyr::group_by(!!fill)
+  } else {
+    data <- .data
+  }
+
+  df_num <- data %>% dplyr::select(c(tidyselect::where(~ is.numeric(.x))))
 
   if (length(df_num)==0){
     stop(call. = FALSE, "Please supply a data-frame or tibble with a numeric column")
@@ -119,7 +136,7 @@ plotDensity <- function(.data,
         ggplot2::geom_boxplot(alpha = 0.3, lwd=1, width = 0.20, outlier.shape = NA)+
         ggplot2::stat_boxplot(geom = "errorbar", width = 0.15)+
         ggplot2::geom_density(
-          aes(x = !!var_x, y = ggplot2::after_stat(scaled), fill=!!group_var, color=!!group_var),
+          ggplot2::aes(x = !!var_x, y = ggplot2::after_stat(scaled), fill=!!group_var, color=!!group_var),
           inherit.aes = FALSE, alpha = 0.5, linewidth = 1)+
         ggplot2::scale_x_continuous(labels = scales::comma) +
         ggplot2::scale_fill_manual(values = pal_discrete, guide='none')+
