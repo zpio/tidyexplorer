@@ -42,7 +42,16 @@ plotDensity <- function(.data,
   fill  <- rlang::enquo(fill_var)
 
   if (!rlang::quo_is_null(fill)) {
-    data <- .data %>% dplyr::group_by(!!fill)
+
+    df_fill <- .data %>%  dplyr::select(!!fill) %>%
+      dplyr::select(c(tidyselect::where(~ is.character(.x)|is.factor(.x)|is.ordered(.x))))
+
+    if (length(df_fill)==0){
+      stop(call. = FALSE, "Please supply a data-frame or tibble with a categorical column")
+    } else {
+      data <- .data %>% dplyr::group_by(!!fill)
+    }
+
   } else {
     data <- .data
   }
