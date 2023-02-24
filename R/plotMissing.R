@@ -52,7 +52,7 @@ plotMissing <- function(.data,
   p1 <-
     dfDescription %>%
     ggplot2::ggplot(
-      ggplot2::aes(x = NAsPct, y = variable, fill=variable, label = pct)
+      ggplot2::aes(x = NAsPct, y = stats::reorder(variable, NAsPct), fill=variable, label = pct)
     ) +
     ggplot2::geom_bar(stat = "identity") +
     ggplot2::scale_x_continuous(labels = scales::percent, limits=c(0,1))+
