@@ -6,6 +6,8 @@
 \usage{
 plotRaincloud(
   .data,
+  x,
+  fill_var = NULL,
   interactive = FALSE,
   fill_ind = "#4e79a7",
   color_ind = "#4e79a7"
@@ -13,6 +15,10 @@ plotRaincloud(
 }
 \arguments{
 \item{.data}{.data A \code{tibble} or \code{data.frame}}
+
+\item{x}{A numerical column}
+
+\item{fill_var}{A categorical column that can be used to change the color}
 
 \item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
 
@@ -31,8 +37,9 @@ Visualize Distributions with Raincloud Plots
 library(dplyr)
 
 iris \%>\%
-   group_by(Species) \%>\%
-   select(Sepal.Width) \%>\%
-   plotRaincloud()
+   plotRaincloud(x = Sepal.Width)
+
+iris \%>\%
+   plotRaincloud(x = Sepal.Width, fill_var = Species)
 
 }

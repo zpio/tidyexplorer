@@ -1,6 +1,8 @@
 #' Visualize Distributions with Raincloud Plots
 #'
 #' @param .data .data A `tibble` or `data.frame`
+#' @param x A numerical column
+#' @param fill_var A categorical column that can be used to change the color
 #' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
 #' @param fill_ind fill
 #' @param color_ind color
@@ -12,12 +14,15 @@
 #' library(dplyr)
 #'
 #' iris %>%
-#'    group_by(Species) %>%
-#'    select(Sepal.Width) %>%
-#'    plotRaincloud()
+#'    plotRaincloud(x = Sepal.Width)
+#'
+#' iris %>%
+#'    plotRaincloud(x = Sepal.Width, fill_var = Species)
 #'
 #' @export
 plotRaincloud <- function(.data,
+                          x,
+                          fill_var = NULL,
                           interactive = FALSE,
                           fill_ind = '#4e79a7',
                           color_ind = '#4e79a7') {
@@ -26,15 +31,29 @@ plotRaincloud <- function(.data,
     stop(call. = FALSE, ".data is not a data-frame or tibble. Please supply a data.frame or tibble.")
   }
 
-  df_num <- .data %>% dplyr::ungroup() %>%
-    dplyr::select(c(tidyselect::where(~is.numeric(.x))))
+  x  <- rlang::enquo(x)
+  fill  <- rlang::enquo(fill_var)
+
+  df_num <- .data %>% select(!!x) %>%
+    dplyr::select(c(tidyselect::where(~is.numeric(.))))
 
   if (length(df_num)==0){
     stop(call. = FALSE, "Please supply a data-frame or tibble with a numeric column")
   }
 
-  if (length(df_num) > 1){
-    stop(call. = FALSE, "Please supply 1 numeric column")
+  if (!rlang::quo_is_null(fill)) {
+
+    df_fill <- .data %>% dplyr::select(!!fill) %>%
+      dplyr::select(c(tidyselect::where(~ is.character(.)|is.factor(.)|is.ordered(.))))
+
+    if (length(df_fill)==0){
+      stop(call. = FALSE, "Please supply a data-frame or tibble with a categorical column")
+    } else {
+      data <- .data %>% select(!!x, !!fill) %>% dplyr::group_by(!!fill)
+    }
+
+  } else {
+    data <- .data %>% select(!!x)
   }
 
 
@@ -43,37 +62,35 @@ plotRaincloud <- function(.data,
 
   names <- df_num %>% names()
 
-  group_var <- .data %>% dplyr::group_vars()
+  group_var <- data %>% dplyr::group_vars()
 
   if(length(group_var)==0){
 
-    name <- df_num %>% names()
+    name <- data %>% names()
 
-    var <- rlang::sym(name)
-
-    box <-  df_num %>%
+    box <-  data %>%
       dplyr::summarise(
-        median = stats::median(!!var, na.rm = TRUE),
-        mean = mean(!!var, na.rm = TRUE),
-        p25 = stats::quantile(!!var, .25, na.rm = TRUE),
-        p75 = stats::quantile(!!var, .75, na.rm = TRUE),
+        median = stats::median(!!x, na.rm = TRUE),
+        mean = mean(!!x, na.rm = TRUE),
+        p25 = stats::quantile(!!x, .25, na.rm = TRUE),
+        p75 = stats::quantile(!!x, .75, na.rm = TRUE),
         iqr = p75 - p25,
         lower_whisker =  p25 - 1.5*iqr,
         upper_whisker =  p75 + 1.5*iqr
       )
 
-    p1 <- df_num %>%
+    p1 <- data %>%
       ggplot2::ggplot()+
       ggplot2::geom_density(
-        data = df_num,
-        ggplot2::aes(x = !!var, y = ggplot2::after_stat(scaled)),
+        data = data,
+        ggplot2::aes(x = !!x, y = ggplot2::after_stat(scaled)),
         fill = fill_ind, color = color_ind,
         alpha = 0.8, size = 1
       )+
       ggplot2::geom_jitter(
-        data = df_num %>% dplyr::sample_n(100, replace = TRUE),
+        data = data %>% dplyr::sample_n(100, replace = TRUE),
         ggplot2::aes(
-          x = !!var,
+          x = !!x,
           y = -0.2
         ),
         fill = fill_ind,
@@ -84,8 +101,8 @@ plotRaincloud <- function(.data,
       )+
       #errorbar
       ggplot2::stat_boxplot(
-        data = df_num,
-        ggplot2::aes(x = !!var, y = -0.2),
+        data = data,
+        ggplot2::aes(x = !!x, y = -0.2),
         geom = "errorbar", width = 0.10, size = 1, color=color_ind
       )+
       # box
@@ -141,22 +158,18 @@ plotRaincloud <- function(.data,
 
   } else if(length(group_var)==1){
 
-    group <- .data %>% dplyr::group_vars()
-
-    group_vars <- rlang::sym(group)
-
-    var <- rlang::sym(df_num %>% names())
+    group <- data %>% dplyr::group_vars()
 
     name <- df_num %>% names()
 
-    box <-  .data %>%
+    box <-  data %>%
       dplyr::summarise(
-        median = stats::median(!!var, na.rm = TRUE),
-        mean = mean(!!var, na.rm = TRUE),
-        p25 = stats::quantile(!!var, .25, na.rm = TRUE),
-        p75 = stats::quantile(!!var, .75, na.rm = TRUE),
-        dens_height = max(stats::density(!!var, na.rm = TRUE)$y),
-        jitter_height = min(stats::density(!!var, na.rm = TRUE)$y),
+        median = stats::median(!!x, na.rm = TRUE),
+        mean = mean(!!x, na.rm = TRUE),
+        p25 = stats::quantile(!!x, .25, na.rm = TRUE),
+        p75 = stats::quantile(!!x, .75, na.rm = TRUE),
+        dens_height = max(stats::density(!!x, na.rm = TRUE)$y),
+        jitter_height = min(stats::density(!!x, na.rm = TRUE)$y),
         iqr = p75 - p25,
         lower_whisker =  p25 - 1.5*iqr,
         upper_whisker =  p75 + 1.5*iqr
@@ -165,17 +178,17 @@ plotRaincloud <- function(.data,
     p1 <- .data %>%
       ggplot2::ggplot()+
       ggplot2::geom_density(
-        data = .data,
-        ggplot2::aes(x = !!var, y = ggplot2::after_stat(scaled), fill = !!group_vars, color = !!group_vars),
+        data = data,
+        ggplot2::aes(x = !!x, y = ggplot2::after_stat(scaled), fill = !!fill, color = !!fill),
         alpha = 0.8, size = 1
       )+
       ggplot2::geom_jitter(
-        data = .data %>% dplyr::sample_n(100, replace = TRUE),
+        data = data %>% dplyr::sample_n(100, replace = TRUE),
         ggplot2::aes(
-          x = !!var,
+          x = !!x,
           y = -0.2,
-          fill = !!group_vars,
-          color = !!group_vars
+          fill = !!fill,
+          color = !!fill
         ),
         height = 0.2,
         width = 0.2,
@@ -183,8 +196,8 @@ plotRaincloud <- function(.data,
       )+
       #errorbar
       ggplot2::stat_boxplot(
-        data = .data,
-        ggplot2::aes(x = !!var, y = -0.2, color=!!group_vars),
+        data = data,
+        ggplot2::aes(x = !!x, y = -0.2, color=!!fill),
         geom = "errorbar", width = 0.10, size = 1
       )+
       # box
@@ -195,8 +208,8 @@ plotRaincloud <- function(.data,
           xmax = median,
           ymin = - 0.3,
           ymax = - 0.1,
-          fill = !!group_vars,
-          color = !!group_vars
+          fill = !!fill,
+          color = !!fill
         ),
         alpha = 1,
         size = 1
@@ -208,8 +221,8 @@ plotRaincloud <- function(.data,
           xmax = p75,
           ymin = - 0.3,
           ymax = - 0.1,
-          fill = !!group_vars,
-          color = !!group_vars
+          fill = !!fill,
+          color = !!fill
         ),
         alpha = 1,
         size = 1
@@ -227,7 +240,7 @@ plotRaincloud <- function(.data,
         size = 0.5,
         alpha = 1
       )+
-      ggplot2::facet_grid(dplyr::vars(!!group_vars), scales = 'free_y')+
+      ggplot2::facet_grid(dplyr::vars(!!fill), scales = 'free_y')+
       ggplot2::scale_fill_manual(values = pal_discrete, guide="none")+
       ggplot2::scale_color_manual(values = pal_discrete, guide="none")+
       ggplot2::labs(y="", title = paste("Distribution of", name, "by", group))+
