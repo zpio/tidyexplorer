@@ -43,14 +43,25 @@ plotCorrelate <- function(.data,
     dplyr::mutate(var1 = names(df_cor)) %>%
     tidyr::gather(key = "var2", value = "cor", -var1) %>%
     dplyr::filter(cor != is.na(cor)) %>%
-    dplyr::mutate(variables = paste(var1, "-", var2)) %>%
+    dplyr::mutate(
+      cor = round(cor, 2),
+      variables = paste(var1, "-", var2)
+    ) %>%
     dplyr::arrange(dplyr::desc(cor)) %>%
     dplyr::mutate(variables = stats::reorder(variables, cor))
 
-  p1 <- ggplot2::ggplot(df, ggplot2::aes(x=cor, y=variables, color=cor, fill=cor))+
-    ggplot2::geom_col()+
-    ggthemes::scale_fill_gradient2_tableau(palette = "Red-Green Diverging")+
-    ggthemes::scale_color_gradient2_tableau(palette = "Red-Green Diverging")+
+  p1 <-
+    ggplot2::ggplot(
+      df, ggplot2::aes(x = cor, y = variables, color = cor, fill = cor)
+    ) +
+    ggplot2::geom_bar(stat = "identity")+
+    ggplot2::geom_text(
+      ggplot2::aes(label = cor, hjust = dplyr::if_else(cor < 0, 1.10, -0.10)),
+      size = 3, color = "grey20"
+    )+
+    ggplot2::scale_x_continuous(limits=c(-1.1,1.1)) +
+    ggthemes::scale_fill_gradient2_tableau(palette = "Red-Blue Diverging")+
+    ggthemes::scale_color_gradient2_tableau(palette = "Red-Blue Diverging")+
     ggplot2::labs(title = 'Correlation Coefficient', y = '')+
     ggplot2::theme_minimal()+
     ggplot2::theme(

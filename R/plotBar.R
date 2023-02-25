@@ -1,6 +1,7 @@
 #' Bar Plot based on target variable
 #'
 #' @param .data A `tibble` or `data.frame`
+#' @param fill_var A categorical column that can be used to change the color
 #' @param interactive  Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
 #' @param top Top
 #' @param position_group Position
@@ -20,11 +21,11 @@
 #'    plotBar()
 #'
 #' mtcars %>%
-#'    group_by(cyl) %>%
-#'    plotBar()
+#'    plotBar(fill_var = cyl, position_group = "fill")
 #'
 #' @export
 plotBar <- function(.data,
+                    fill_var = NULL,
                     interactive = FALSE,
                     top = 10,
                     pct = TRUE,
@@ -35,7 +36,26 @@ plotBar <- function(.data,
     stop(call. = FALSE, ".data is not a data-frame or tibble. Please supply a data.frame or tibble.")
   }
 
-  df_cat <- .data %>%
+
+  fill  <- rlang::enquo(fill_var)
+
+  if (!rlang::quo_is_null(fill)) {
+
+    df_fill <- .data %>%  dplyr::select(!!fill) %>%
+      dplyr::select(c(tidyselect::where(~ is.character(.x)|is.factor(.x)|is.ordered(.x))))
+
+    if (length(df_fill)==0){
+      stop(call. = FALSE, "Please supply a data-frame or tibble with a categorical column")
+    } else {
+      data <- .data %>% dplyr::group_by(!!fill)
+    }
+
+  } else {
+    data <- .data
+  }
+
+
+  df_cat <- data %>%
     dplyr::select(c(tidyselect::where(~ is.character(.x)|is.factor(.x)|is.ordered(.x))))
 
 

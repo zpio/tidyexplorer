@@ -1,7 +1,8 @@
 #' Scatter Plot based on target variable
 #'
 #' @param .data A `tibble` or `data.frame`
-#' @param target A variable numeric
+#' @param y A variable numeric
+#' @param fill_var A categorical column that can be used to change the color
 #' @param smooth smooth
 #' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
 #' @param ncol_facet Number of facet columns
@@ -13,11 +14,16 @@
 #' library(dplyr)
 #'
 #' mtcars %>%
-#'    plotScatter(target = disp)
+#'    plotScatter(y = disp)
+#'
+#' iris %>%
+#'    select(Petal.Width, Sepal.Length, Species) %>%
+#'    plotScatter(y = Petal.Width, fill_var = Species)
 #'
 #' @export
 plotScatter <- function(.data,
-                        target,
+                        y,
+                        fill_var = NULL,
                         smooth = TRUE,
                         interactive = FALSE,
                         ncol_facet = 3) {
@@ -26,7 +32,25 @@ plotScatter <- function(.data,
     stop(call. = FALSE, ".data is not a data-frame or tibble. Please supply a data.frame or tibble.")
   }
 
-  df_num <- .data %>% dplyr::select(c(tidyselect::where(~ is.numeric(.x))))
+  fill  <- rlang::enquo(fill_var)
+
+  if (!rlang::quo_is_null(fill)) {
+
+    df_fill <- .data %>%  dplyr::select(!!fill) %>%
+      dplyr::select(c(tidyselect::where(~ is.character(.x)|is.factor(.x)|is.ordered(.x))))
+
+    if (length(df_fill)==0){
+      stop(call. = FALSE, "Please supply a data-frame or tibble with a categorical column")
+    } else {
+      data <- .data %>% dplyr::group_by(!!fill)
+    }
+
+  } else {
+    data <- .data
+  }
+
+
+  df_num <- data %>% dplyr::select(c(tidyselect::where(~ is.numeric(.x))))
 
   if (length(df_num)==0){
     stop(call. = FALSE, "Please supply a data-frame or tibble with a numeric column")
@@ -35,7 +59,7 @@ plotScatter <- function(.data,
   pal_discrete <-
     rep(ggthemes::ggthemes_data$tableau$`color-palettes`$regular$`Tableau 10`$value, 10)
 
-  obj <- df_num %>% dplyr::select({{target}}) %>% names()
+  obj <- df_num %>% dplyr::select({{y}}) %>% names()
 
   group_var <- df_num %>% dplyr::group_vars()
 
@@ -47,11 +71,12 @@ plotScatter <- function(.data,
         values_to = "value"
       ) %>%
       dplyr::arrange(variable) %>%
-      ggplot2::ggplot(ggplot2::aes(x = value, y = {{target}}, fill = variable, color = variable))+
+      ggplot2::ggplot(ggplot2::aes(x = value, y = {{y}}, fill = variable, color = variable))+
       ggplot2::scale_fill_manual(values = pal_discrete, guide="none")+
       ggplot2::scale_color_manual(values = pal_discrete, guide="none")
 
   }else if(length(group_var)==1){
+
     group_var <- rlang::sym(df_num %>% dplyr::group_vars())
 
     p1 <- df_num %>%
@@ -61,7 +86,7 @@ plotScatter <- function(.data,
         values_to = "value"
       ) %>%
       dplyr::arrange(variable) %>%
-      ggplot2::ggplot(ggplot2::aes(x = value, y = {{target}}, fill = !!group_var, color = !!group_var))+
+      ggplot2::ggplot(ggplot2::aes(x = value, y = {{y}}, fill = !!group_var, color = !!group_var))+
       ggplot2::scale_fill_manual(values = pal_discrete)+
       ggplot2::scale_color_manual(values = pal_discrete)
 
@@ -72,11 +97,11 @@ plotScatter <- function(.data,
 
   if(smooth){
     p1 <- p1 +
-      ggplot2::geom_point(alpha = 0.7)+
-      ggplot2::geom_smooth(alpha = 0.2, size=0.5)
+      ggplot2::geom_point(shape = 21, alpha = 1, size = 2, color="black")+
+      ggplot2::geom_smooth(method = lm, se = TRUE, alpha = 0.1, size = 0.5)
   } else{
     p1 <- p1 +
-      ggplot2::geom_point(alpha = 0.5)
+      ggplot2::geom_point(shape = 21, alpha = 1, size = 2, color="black")
   }
 
   p1 <- p1 +

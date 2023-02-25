@@ -4,12 +4,21 @@
 \alias{plotScatter}
 \title{Scatter Plot based on target variable}
 \usage{
-plotScatter(.data, target, smooth = TRUE, interactive = FALSE, ncol_facet = 3)
+plotScatter(
+  .data,
+  y,
+  fill_var = NULL,
+  smooth = TRUE,
+  interactive = FALSE,
+  ncol_facet = 3
+)
 }
 \arguments{
 \item{.data}{A \code{tibble} or \code{data.frame}}
 
-\item{target}{A variable numeric}
+\item{y}{A variable numeric}
+
+\item{fill_var}{A categorical column that can be used to change the color}
 
 \item{smooth}{smooth}
 
@@ -28,6 +37,10 @@ Scatter Plot based on target variable
 library(dplyr)
 
 mtcars \%>\%
-   plotScatter(target = disp)
+   plotScatter(y = disp)
+
+iris \%>\%
+   select(Petal.Width, Sepal.Length, Species) \%>\%
+   plotScatter(y = Petal.Width, fill_var = Species)
 
 }

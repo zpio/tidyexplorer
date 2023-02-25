@@ -61,6 +61,7 @@ plotHistogram <- function(.data,
     data <- .data
   }
 
+
   df_num <- data %>% dplyr::select(c(tidyselect::where(~ is.numeric(.x))))
 
   if (length(df_num)==0){

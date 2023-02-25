@@ -6,6 +6,7 @@
 \usage{
 plotBar(
   .data,
+  fill_var = NULL,
   interactive = FALSE,
   top = 10,
   pct = TRUE,
@@ -15,6 +16,8 @@ plotBar(
 }
 \arguments{
 \item{.data}{A \code{tibble} or \code{data.frame}}
+
+\item{fill_var}{A categorical column that can be used to change the color}
 
 \item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
 
@@ -43,7 +46,6 @@ mtcars \%>\%
    plotBar()
 
 mtcars \%>\%
-   group_by(cyl) \%>\%
-   plotBar()
+   plotBar(fill_var = cyl, position_group = "fill")
 
 }
