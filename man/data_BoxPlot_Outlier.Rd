@@ -2,18 +2,18 @@
 % Please edit documentation in R/data_BoxPlot_Outlier.R
 \name{data_BoxPlot_Outlier}
 \alias{data_BoxPlot_Outlier}
-\title{Statistical Data: Box Plot}
+\title{Generate statistics for the boxplot with and without outliers}
 \usage{
 data_BoxPlot_Outlier(.data)
 }
 \arguments{
-\item{.data}{.data A \code{tibble} or \code{data.frame}}
+\item{.data}{A data frame or tibble with at least one numeric column.}
 }
 \value{
-A \code{tibble}
+A data frame with statistics for the boxplot with and without outliers.
 }
 \description{
-Statistical Data: Box Plot
+This function generates statistics for the boxplot with and without outliers for a numeric column of a data frame.
 }
 \examples{
 library(dplyr)

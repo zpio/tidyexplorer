@@ -1,8 +1,14 @@
-#' Describe the outliers of the numeric variables of the data frame
+#' Explore Outliers
 #'
-#' @param .data A `tibble` or `data.frame`
+#' This function explores the outliers of all numeric variables in a data frame.
 #'
-#' @return A `tibble`
+#' @param .data A data frame or tibble containing numeric columns.
+#'
+#' @return A data frame with the following columns: The name of the numeric variable,
+#' number of non-missing observations, number of missing observations,
+#' number of outliers detected using the boxplot method,
+#' ratio of outliers to the total number of observations, The mean value of the outliers,
+#' mean value of the variable including outliers, mean value of the variable after removing outliers.
 #'
 #' @examples
 #'

@@ -2,20 +2,20 @@
 % Please edit documentation in R/plotOutliers.R
 \name{plotOutliers}
 \alias{plotOutliers}
-\title{Visualization of outliers}
+\title{Plot Outliers}
 \usage{
 plotOutliers(.data, interactive = FALSE)
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A data.frame or tibble.}
 
-\item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+\item{interactive}{A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot
 }
 \description{
-Visualization of outliers
+Plots a Density Chart and Box-Plot of numerical variables
 }
 \examples{
 library(dplyr)

@@ -1,7 +1,10 @@
-#' Description of all categorical variables
+#' Explore categorical variables
 #'
-#' @param .data A `tibble` or `data.frame`
-#' @param top Number of levels to return for each variable
+#' This function explores all categorical variables calculating the frequency and ratio of each level for each variable.
+#' The output includes the top levels for each variable by frequency.
+#'
+#' @param .data a data frame or tibble
+#' @param top an integer indicating the number of top levels to display (default is 30)
 #'
 #' @return A `tibble`
 #'
@@ -10,7 +13,7 @@
 #'    exploreCategory()
 #'
 #' @export
-exploreCategory <- function(.data, top = 500) {
+exploreCategory <- function(.data, top = 30) {
 
   if (!is.data.frame(.data)) {
     stop(call. = FALSE, ".data is not a data-frame or tibble. Please supply a data.frame or tibble.")

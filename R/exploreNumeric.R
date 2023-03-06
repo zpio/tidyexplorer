@@ -1,8 +1,13 @@
-#' Description of all numerical variables
+#' Summarize Numeric Data
 #'
-#' @param .data A `tibble` or `data.frame`
+#' This function summary numeric variables including count, missing values, minimum, maximum, median, quartiles, mean, standard deviation,
+#' number of zeros, number of negatives, and number of outliers.
 #'
-#' @return A `tibble`
+#' @param .data a data frame or tibble
+#'
+#' @return a tibble with one row for each numeric variable and columns for count, missing values,
+#' minimum, maximum, median, quartiles, mean, standard deviation, number of zeros, number of negatives,
+#' and number of outliers.
 #'
 #' @examples
 #' library(dplyr)

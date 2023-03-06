@@ -1,11 +1,14 @@
-#' Scatter Plot based on target variable
+#' Plot Scatter Chart in ggplot2
 #'
-#' @param .data A `tibble` or `data.frame`
-#' @param y A variable numeric
-#' @param fill_var A categorical column that can be used to change the color
-#' @param smooth smooth
-#' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
-#' @param ncol_facet Number of facet columns
+#' This function plots a Scatter Chart for all numeric variables and a target numeric variable (y-axis),
+#' with the option to fill by a categorical variable.
+#'
+#' @param .data A data.frame or tibble.
+#' @param y A target numeric variable to be plotted on the y-axis.
+#' @param fill_var (Optional) A categorical variable to group and fill the plot.
+#' @param smooth A boolean that specifies whether a linear regression line should be added to the plot. Default is TRUE.
+#' @param interactive A boolean that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).
+#' @param ncol_facet A Boolean that specifies number of columns for the facet_wrap function. Default is 3.
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'

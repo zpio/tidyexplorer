@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotBar.R
 \name{plotBar}
 \alias{plotBar}
-\title{Bar Plot based on target variable}
+\title{Plot bar chart for categorical variables}
 \usage{
 plotBar(
   .data,
@@ -15,25 +15,25 @@ plotBar(
 )
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A data frame or tibble.}
 
-\item{fill_var}{A categorical column that can be used to change the color}
+\item{fill_var}{(Optional) A categorical variable to group and fill the plot.}
 
-\item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+\item{interactive}{A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 
-\item{top}{Top}
+\item{top}{An integer specifying the number of top variables to display. Defaults to 10.}
 
-\item{pct}{Pct}
+\item{pct}{A boolean value indicating whether to plot frequencies or proportions. Defaults to TRUE.}
 
-\item{position_group}{Position}
+\item{position_group}{A string indicating the position of the bars. Can be "fill" or "dodge". Defaults to "fill".}
 
-\item{ncol_facet}{Number of facet columns}
+\item{ncol_facet}{An integer indicating the number of columns to use for facet_wrap. Defaults to 3.}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot
 }
 \description{
-Bar Plot based on target variable
+This function plots a Bar Chart for all categorical variables, with the option to fill by a categorical variable.
 }
 \examples{
 

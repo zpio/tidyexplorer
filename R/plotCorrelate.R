@@ -1,8 +1,10 @@
-#' Visualize correlation coefficient
+#' Plot Correlation Coefficient
 #'
-#' @param .data A `tibble` or `data.frame`
-#' @param method a character string: "pearson", "kendall" or "spearman".
-#' @param interactive TRUE/FLASE. Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
+#' A function plots of the correlation coefficients between all pairs of numeric variables in a data frame.
+#'
+#' @param .data A data frame or tibble with numeric columns to calculate correlations.
+#' @param method The correlation coefficient method to use. Defaults to "pearson".
+#' @param interactive A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot.
 #'

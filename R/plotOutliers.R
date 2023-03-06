@@ -1,7 +1,9 @@
-#' Visualization of outliers
+#' Plot Outliers
 #'
-#' @param .data A `tibble` or `data.frame`
-#' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
+#' Plots a Density Chart and Box-Plot of numerical variables
+#'
+#' @param .data A data.frame or tibble.
+#' @param interactive A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'

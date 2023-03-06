@@ -1,12 +1,14 @@
-#' Visualization of normality
+#' Plot Normality of Numeric Variables
 #'
-#' @param .data .data  A `tibble` or `data.frame`
-#' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
-#' @param color_density Density Color
-#' @param color_qq      QQ Color
-#' @param color_qq_line QQ Line Color
-#' @param color_sqrt    Sqrt Color
-#' @param color_log     Log Color
+#' This function generates a grid of plots for each numeric variable in the input data-frame, showing their distribution, Q-Q plot, and the distribution after applying the sqrt or log transformation.
+#'
+#' @param .data The input data-frame or tibble.
+#' @param interactive A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).
+#' @param color_density A string indicating the color to be used for the density plots. Default is "steelblue".
+#' @param color_qq A string indicating the color to be used for the Q-Q plots. Default is "steelblue".
+#' @param color_qq_line A string indicating the color to be used for the line in the Q-Q plots. Default is "steelblue4".
+#' @param color_sqrt A string indicating the color to be used for the density plots of the sqrt-transformed variables. Default is "darkorange".
+#' @param color_log A string indicating the color to be used for the density plots of the log-transformed variables. Default is "salmon".
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'

@@ -1,19 +1,19 @@
 #' Plotly Themes
 #'
-#' @param plot A plotly object
-#' @param config.scrollZoom logical. FALSE default
-#' @param config.displayModeBar logical. FALSE default
-#' @param config.responsive logical. TRUE default
-#' @param config.staticPlot logical. FALSE default
-#' @param layout.dragmode logical. TRUE default
-#' @param layout.autosize logical. TRUE default
-#' @param layout.width A number. NULL default
-#' @param font.color A string. "#ffffff" default
-#' @param font.family A string. "Segoe UI" default
-#' @param layout.background A string. "#292c30" default
-#' @param ... Parameters passed to `plotly` functions.
+#' @param plot A Plotly chart object.
+#' @param config.scrollZoom A logical value indicating whether to enable scroll-to-zoom functionality in the chart.
+#' @param config.displayModeBar A logical value indicating whether to display the mode bar in the chart.
+#' @param config.responsive A logical value indicating whether the chart should be responsive.
+#' @param config.staticPlot A logical value indicating whether the chart should be static.
+#' @param layout.dragmode A logical value indicating whether the chart should be draggable.
+#' @param layout.autosize A logical value indicating whether the chart should automatically adjust its size.
+#' @param layout.width The width of the chart in pixels.
+#' @param font.color The font color for the chart.
+#' @param font.family The font family for the chart.
+#' @param layout.background The background color for the chart.
+#' @param ... Additional arguments to be passed to the Plotly chart object.
 #'
-#' @return A plotly object
+#' @return A plotly object with a dark theme or white theme
 #'
 #' @examples
 #'

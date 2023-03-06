@@ -36,32 +36,32 @@ plotly_white(
 )
 }
 \arguments{
-\item{plot}{A plotly object}
+\item{plot}{A Plotly chart object.}
 
-\item{config.scrollZoom}{logical. FALSE default}
+\item{config.scrollZoom}{A logical value indicating whether to enable scroll-to-zoom functionality in the chart.}
 
-\item{config.displayModeBar}{logical. FALSE default}
+\item{config.displayModeBar}{A logical value indicating whether to display the mode bar in the chart.}
 
-\item{config.responsive}{logical. TRUE default}
+\item{config.responsive}{A logical value indicating whether the chart should be responsive.}
 
-\item{config.staticPlot}{logical. FALSE default}
+\item{config.staticPlot}{A logical value indicating whether the chart should be static.}
 
-\item{layout.dragmode}{logical. TRUE default}
+\item{layout.dragmode}{A logical value indicating whether the chart should be draggable.}
 
-\item{layout.autosize}{logical. TRUE default}
+\item{layout.autosize}{A logical value indicating whether the chart should automatically adjust its size.}
 
-\item{layout.width}{A number. NULL default}
+\item{layout.width}{The width of the chart in pixels.}
 
-\item{font.color}{A string. "#ffffff" default}
+\item{font.color}{The font color for the chart.}
 
-\item{font.family}{A string. "Segoe UI" default}
+\item{font.family}{The font family for the chart.}
 
-\item{layout.background}{A string. "#292c30" default}
+\item{layout.background}{The background color for the chart.}
 
-\item{...}{Parameters passed to \code{plotly} functions.}
+\item{...}{Additional arguments to be passed to the Plotly chart object.}
 }
 \value{
-A plotly object
+A plotly object with a dark theme or white theme
 }
 \description{
 Plotly Themes

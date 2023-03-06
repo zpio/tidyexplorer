@@ -2,20 +2,20 @@
 % Please edit documentation in R/correlate.R
 \name{correlate}
 \alias{correlate}
-\title{Correlation coefficient}
+\title{Correlations}
 \usage{
 correlate(.data, method = "pearson")
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A data frame or tibble.}
 
-\item{method}{a character string: "pearson", "kendall" or "spearman".}
+\item{method}{The correlation method to use. One of "pearson", "kendall", or "spearman".}
 }
 \value{
-A \code{tibble}
+A tibble with the pairwise correlations between numeric columns of the input data frame.
 }
 \description{
-Correlation coefficient
+This function calculate pairwise correlations between numeric columns of a data frame.
 }
 \examples{
 

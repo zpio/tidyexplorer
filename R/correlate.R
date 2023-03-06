@@ -1,9 +1,10 @@
-#' Correlation coefficient
+#' Correlations
 #'
-#' @param .data A `tibble` or `data.frame`
-#' @param method a character string: "pearson", "kendall" or "spearman".
+#' This function calculate pairwise correlations between numeric columns of a data frame.
 #'
-#' @return A `tibble`
+#' @param .data A data frame or tibble.
+#' @param method The correlation method to use. One of "pearson", "kendall", or "spearman".
+#' @return A tibble with the pairwise correlations between numeric columns of the input data frame.
 #'
 #' @examples
 #'

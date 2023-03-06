@@ -1,22 +1,26 @@
 #' Date Functions
 #'
-#' @param date A vector of dates
-#' @param start_date A vector of dates
-#' @param end_date A vector of dates
-#' @param date_part Part of a date to consider: 'day', month, 'year', 'week', 'quarter', 'hour', 'minute', 'second'.
+#' Perform various operations on date objects.
+#'
+#' @param date A vector of dates.
+#' @param start_date A vector of dates.
+#' @param end_date A vector of dates.
+#' @param date_part A string indicating the part of the date to consider: 'day', 'month', 'year', 'week', 'quarter', 'hour', 'minute', 'second'.
 #' @param interval A number interval added to the specified date_part of that date.
 #' @param date_format A string specifying the date format of a date string: 'ymd', 'ydm', 'mdy', etc.
-#' @param date_string A character vector of dates
-#' @param week_start Week start day. Default is 1, Monday.
-#' @param year A numeric year
-#' @param month A numeric month
-#' @param day A numeric day
-#' @param hour A numeric hour
-#' @param min A numeric min
-#' @param sec A numeric sec
-#' @param tz Time Zone. Defaults to UTC.
+#' @param date_string A character vector of dates.
+#' @param week_start An integer indicating the week start day. Default is 1, Monday.
+#' @param year A numeric year.
+#' @param month A numeric month.
+#' @param day A numeric day.
+#' @param hour A numeric hour.
+#' @param min A numeric minute.
+#' @param sec A numeric second.
+#' @param tz A string indicating the time zone. Defaults to UTC.
 #'
-#' @return Date or date-time object the length of x
+#' @return A date or date-time object the length of x
+#'
+#' @name Date_Functions
 #'
 #' @examples
 #'

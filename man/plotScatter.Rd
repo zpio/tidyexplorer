@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotScatter.R
 \name{plotScatter}
 \alias{plotScatter}
-\title{Scatter Plot based on target variable}
+\title{Plot Scatter Chart in ggplot2}
 \usage{
 plotScatter(
   .data,
@@ -14,23 +14,24 @@ plotScatter(
 )
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A data.frame or tibble.}
 
-\item{y}{A variable numeric}
+\item{y}{A target numeric variable to be plotted on the y-axis.}
 
-\item{fill_var}{A categorical column that can be used to change the color}
+\item{fill_var}{(Optional) A categorical variable to group and fill the plot.}
 
-\item{smooth}{smooth}
+\item{smooth}{A boolean that specifies whether a linear regression line should be added to the plot. Default is TRUE.}
 
-\item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+\item{interactive}{A boolean that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 
-\item{ncol_facet}{Number of facet columns}
+\item{ncol_facet}{A Boolean that specifies number of columns for the facet_wrap function. Default is 3.}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot
 }
 \description{
-Scatter Plot based on target variable
+This function plots a Scatter Chart for all numeric variables and a target numeric variable (y-axis),
+with the option to fill by a categorical variable.
 }
 \examples{
 

@@ -1,12 +1,12 @@
 #' Visualize Distributions based on target variable and categorical variables
 #'
-#' @param .data A `tibble` or `data.frame` with categorical variables and target numerical variable
-#' @param target_num A variable numeric
-#' @param dir_cat Direction of facet columns
-#' @param ncol_cat Number of facet columns
-#' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
+#' @param .data A data frame.
+#' @param target_num The name of the target numeric variable to analyze.
+#' @param dir_cat The direction of facet_wrap. Options are "h" for horizontal and "v" for vertical.
+#' @param ncol_cat The number of columns in facet_wrap.
+#' @param interactive A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).
 #'
-#' @return A static `ggplot2` plot or an interactive `plotly` plot.
+#' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'
 #' @examples
 #' library(dplyr)

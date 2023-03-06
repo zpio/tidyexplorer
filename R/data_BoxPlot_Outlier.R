@@ -1,8 +1,11 @@
-#' Statistical Data: Box Plot
+#' Generate statistics for the boxplot with and without outliers
 #'
-#' @param .data .data A `tibble` or `data.frame`
+#' This function generates statistics for the boxplot with and without outliers for a numeric column of a data frame.
 #'
-#' @return A `tibble`
+#' @param .data A data frame or tibble with at least one numeric column.
+#'
+#' @return A data frame with statistics for the boxplot with and without outliers.
+#'
 #'
 #' @examples
 #' library(dplyr)

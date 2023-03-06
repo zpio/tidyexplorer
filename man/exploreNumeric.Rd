@@ -2,18 +2,21 @@
 % Please edit documentation in R/exploreNumeric.R
 \name{exploreNumeric}
 \alias{exploreNumeric}
-\title{Description of all numerical variables}
+\title{Summarize Numeric Data}
 \usage{
 exploreNumeric(.data)
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{a data frame or tibble}
 }
 \value{
-A \code{tibble}
+a tibble with one row for each numeric variable and columns for count, missing values,
+minimum, maximum, median, quartiles, mean, standard deviation, number of zeros, number of negatives,
+and number of outliers.
 }
 \description{
-Description of all numerical variables
+This function summary numeric variables including count, missing values, minimum, maximum, median, quartiles, mean, standard deviation,
+number of zeros, number of negatives, and number of outliers.
 }
 \examples{
 library(dplyr)

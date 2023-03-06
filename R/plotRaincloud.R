@@ -1,13 +1,17 @@
-#' Visualize Distributions with Raincloud Plots
+#' Plot a Raincloud Chart in ggplot2
 #'
-#' @param .data .data A `tibble` or `data.frame`
-#' @param x A numerical column
-#' @param fill_var A categorical column that can be used to change the color
-#' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
-#' @param fill_ind fill
-#' @param color_ind color
+#' This function plots a Density Chart for a numeric variable,
+#' with the option to fill by a categorical variable.
+#'
+#' @param .data A data.frame or tibble.
+#' @param x A numeric variable.
+#' @param fill_var (Optional) A categorical variable to group and fill the plot.
+#' @param interactive A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).
+#' @param fill_ind A character string with a color code for the fill of the raincloud.
+#' @param color_ind A character string with a color code for the color of the raincloud.
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
+#'
 #'
 #' @examples
 #'

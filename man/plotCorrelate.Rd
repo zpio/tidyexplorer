@@ -2,22 +2,22 @@
 % Please edit documentation in R/plotCorrelate.R
 \name{plotCorrelate}
 \alias{plotCorrelate}
-\title{Visualize correlation coefficient}
+\title{Plot Correlation Coefficient}
 \usage{
 plotCorrelate(.data, method = "pearson", interactive = FALSE)
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A data frame or tibble with numeric columns to calculate correlations.}
 
-\item{method}{a character string: "pearson", "kendall" or "spearman".}
+\item{method}{The correlation coefficient method to use. Defaults to "pearson".}
 
-\item{interactive}{TRUE/FLASE. Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+\item{interactive}{A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot.
 }
 \description{
-Visualize correlation coefficient
+A function plots of the correlation coefficients between all pairs of numeric variables in a data frame.
 }
 \examples{
 

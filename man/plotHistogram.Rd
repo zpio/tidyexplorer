@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotHistogram.R
 \name{plotHistogram}
 \alias{plotHistogram}
-\title{Title}
+\title{Plot Histograms in ggplot2}
 \usage{
 plotHistogram(
   .data,
@@ -16,27 +16,28 @@ plotHistogram(
 )
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A data.frame or tibble.}
 
-\item{fill_var}{A categorical column that can be used to change the color}
+\item{fill_var}{(Optional) A categorical variable to group and fill the plot.}
 
-\item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+\item{interactive}{A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 
-\item{facet_grid}{facet grid}
+\item{facet_grid}{A boolean value that specifies whether the chart should be displayed in facet_grid when there are only two numeric variables and one categorical variable specified in fill_var.}
 
-\item{ncol_facet}{Number of facet columns}
+\item{ncol_facet}{An integer value indicating the number of columns for facet_grid. Defaults to 3.}
 
-\item{bins}{Number of bins}
+\item{bins}{An integer value indicating the number of bins for the histogram. Defaults to 30.}
 
-\item{alpha}{alpha}
+\item{alpha}{A numeric value indicating the alpha (transparency) for the histogram bars. Defaults to 1.}
 
-\item{scales}{scales "free", "free_x", "free_y"}
+\item{scales}{A string value indicating how the axes scales should be computed. Defaults to "free".}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot
 }
 \description{
-Title
+This function plots a Density Chart for all numeric variables,
+with the option to fill by a categorical variable.
 }
 \examples{
 

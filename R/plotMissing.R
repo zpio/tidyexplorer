@@ -1,9 +1,10 @@
-#' Visualize missing data
+#' Plot the Percentage of Missing Values in a Data Frame
 #'
-#' @param .data A `tibble` or `data.frame`
-#' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
+#' This function plots the percentage of missing values for each variable in the data frame.
+#' The output is a bar chart with the variables sorted in descending order based on the percentage of missing values.
 #'
-#' @return A static `ggplot2` plot or an interactive `plotly` plot
+#' @param .data A data frame or tibble.
+#' @param interactive A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).
 #'
 #' @examples
 #'

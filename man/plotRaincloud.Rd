@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotRaincloud.R
 \name{plotRaincloud}
 \alias{plotRaincloud}
-\title{Visualize Distributions with Raincloud Plots}
+\title{Plot a Raincloud Chart in ggplot2}
 \usage{
 plotRaincloud(
   .data,
@@ -14,23 +14,24 @@ plotRaincloud(
 )
 }
 \arguments{
-\item{.data}{.data A \code{tibble} or \code{data.frame}}
+\item{.data}{A data.frame or tibble.}
 
-\item{x}{A numerical column}
+\item{x}{A numeric variable.}
 
-\item{fill_var}{A categorical column that can be used to change the color}
+\item{fill_var}{(Optional) A categorical variable to group and fill the plot.}
 
-\item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+\item{interactive}{A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 
-\item{fill_ind}{fill}
+\item{fill_ind}{A character string with a color code for the fill of the raincloud.}
 
-\item{color_ind}{color}
+\item{color_ind}{A character string with a color code for the color of the raincloud.}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot
 }
 \description{
-Visualize Distributions with Raincloud Plots
+This function plots a Density Chart for a numeric variable,
+with the option to fill by a categorical variable.
 }
 \examples{
 

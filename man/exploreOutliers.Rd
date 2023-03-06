@@ -2,18 +2,22 @@
 % Please edit documentation in R/exploreOutliers.R
 \name{exploreOutliers}
 \alias{exploreOutliers}
-\title{Describe the outliers of the numeric variables of the data frame}
+\title{Explore Outliers}
 \usage{
 exploreOutliers(.data)
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A data frame or tibble containing numeric columns.}
 }
 \value{
-A \code{tibble}
+A data frame with the following columns: The name of the numeric variable,
+number of non-missing observations, number of missing observations,
+number of outliers detected using the boxplot method,
+ratio of outliers to the total number of observations, The mean value of the outliers,
+mean value of the variable including outliers, mean value of the variable after removing outliers.
 }
 \description{
-Describe the outliers of the numeric variables of the data frame
+This function explores the outliers of all numeric variables in a data frame.
 }
 \examples{
 

@@ -13,18 +13,18 @@ plotDensity_target(
 )
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame} with categorical variables and target numerical variable}
+\item{.data}{A data frame.}
 
-\item{target_num}{A variable numeric}
+\item{target_num}{The name of the target numeric variable to analyze.}
 
-\item{dir_cat}{Direction of facet columns}
+\item{dir_cat}{The direction of facet_wrap. Options are "h" for horizontal and "v" for vertical.}
 
-\item{ncol_cat}{Number of facet columns}
+\item{ncol_cat}{The number of columns in facet_wrap.}
 
-\item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+\item{interactive}{A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 }
 \value{
-A static \code{ggplot2} plot or an interactive \code{plotly} plot.
+A static \code{ggplot2} plot or an interactive \code{plotly} plot
 }
 \description{
 Visualize Distributions based on target variable and categorical variables

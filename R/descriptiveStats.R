@@ -1,8 +1,11 @@
-#' Descriptive Statistics
+#' Descriptive Statistic
 #'
-#' @param .data .data A `tibble` or `data.frame`
+#' This function calculate descriptive statistics for numeric variables in a data frame
 #'
-#' @return A `tibble`
+#'
+#' @param .data A data.frame or tibble.
+#'
+#' @return A tibble with descriptive statistics for all numeric variables in .data.
 #'
 #' @examples
 #'

@@ -1,13 +1,17 @@
-#' Title
+#' Plot Histograms in ggplot2
 #'
-#' @param .data A `tibble` or `data.frame`
-#' @param fill_var A categorical column that can be used to change the color
-#' @param interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
-#' @param facet_grid facet grid
-#' @param ncol_facet Number of facet columns
-#' @param bins Number of bins
-#' @param alpha alpha
-#' @param scales scales "free", "free_x", "free_y"
+#' This function plots a Density Chart for all numeric variables,
+#' with the option to fill by a categorical variable.
+#'
+#' @param .data A data.frame or tibble.
+#' @param fill_var (Optional) A categorical variable to group and fill the plot.
+#' @param interactive A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).
+#' @param facet_grid A boolean value that specifies whether the chart should be displayed in facet_grid when there are only two numeric variables and one categorical variable specified in fill_var.
+#' @param ncol_facet An integer value indicating the number of columns for facet_grid. Defaults to 3.
+#' @param bins An integer value indicating the number of bins for the histogram. Defaults to 30.
+#' @param alpha A numeric value indicating the alpha (transparency) for the histogram bars. Defaults to 1.
+#' @param scales A string value indicating how the axes scales should be computed. Defaults to "free".
+#'
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'

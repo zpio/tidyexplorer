@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotDensity.R
 \name{plotDensity}
 \alias{plotDensity}
-\title{Visualize Distributions}
+\title{Plot Density Chart in ggplot2}
 \usage{
 plotDensity(
   .data,
@@ -13,21 +13,22 @@ plotDensity(
 )
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A data.frame or tibble.}
 
-\item{fill_var}{A categorical column that can be used to change the color}
+\item{fill_var}{(Optional) A categorical variable to group and fill the plot.}
 
-\item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+\item{interactive}{A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 
-\item{facet_grid}{facet}
+\item{facet_grid}{A boolean value that specifies whether the chart should be displayed in facet_grid when there are only two numeric variables and one categorical variable specified in fill_var.}
 
-\item{ncol_facet}{Number of facet columns}
+\item{ncol_facet}{An integer that specifies the number of columns in the facet plot. Default is 3.}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot
 }
 \description{
-Visualize Distributions
+This function plots a Density Chart for all numeric variables,
+with the option to fill by a categorical variable.
 }
 \examples{
 

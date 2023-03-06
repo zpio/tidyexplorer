@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotNormality.R
 \name{plotNormality}
 \alias{plotNormality}
-\title{Visualization of normality}
+\title{Plot Normality of Numeric Variables}
 \usage{
 plotNormality(
   .data,
@@ -15,25 +15,25 @@ plotNormality(
 )
 }
 \arguments{
-\item{.data}{.data  A \code{tibble} or \code{data.frame}}
+\item{.data}{The input data-frame or tibble.}
 
-\item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+\item{interactive}{A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 
-\item{color_density}{Density Color}
+\item{color_density}{A string indicating the color to be used for the density plots. Default is "steelblue".}
 
-\item{color_qq}{QQ Color}
+\item{color_qq}{A string indicating the color to be used for the Q-Q plots. Default is "steelblue".}
 
-\item{color_qq_line}{QQ Line Color}
+\item{color_qq_line}{A string indicating the color to be used for the line in the Q-Q plots. Default is "steelblue4".}
 
-\item{color_sqrt}{Sqrt Color}
+\item{color_sqrt}{A string indicating the color to be used for the density plots of the sqrt-transformed variables. Default is "darkorange".}
 
-\item{color_log}{Log Color}
+\item{color_log}{A string indicating the color to be used for the density plots of the log-transformed variables. Default is "salmon".}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot
 }
 \description{
-Visualization of normality
+This function generates a grid of plots for each numeric variable in the input data-frame, showing their distribution, Q-Q plot, and the distribution after applying the sqrt or log transformation.
 }
 \examples{
 

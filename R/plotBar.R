@@ -1,12 +1,14 @@
-#' Bar Plot based on target variable
+#' Plot bar chart for categorical variables
 #'
-#' @param .data A `tibble` or `data.frame`
-#' @param fill_var A categorical column that can be used to change the color
-#' @param interactive  Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
-#' @param top Top
-#' @param position_group Position
-#' @param pct Pct
-#' @param ncol_facet Number of facet columns
+#' This function plots a Bar Chart for all categorical variables, with the option to fill by a categorical variable.
+#'
+#' @param .data A data frame or tibble.
+#' @param fill_var (Optional) A categorical variable to group and fill the plot.
+#' @param interactive A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).
+#' @param top An integer specifying the number of top variables to display. Defaults to 10.
+#' @param pct A boolean value indicating whether to plot frequencies or proportions. Defaults to TRUE.
+#' @param position_group A string indicating the position of the bars. Can be "fill" or "dodge". Defaults to "fill".
+#' @param ncol_facet An integer indicating the number of columns to use for facet_wrap. Defaults to 3.
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'

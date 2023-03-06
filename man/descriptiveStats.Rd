@@ -2,18 +2,18 @@
 % Please edit documentation in R/descriptiveStats.R
 \name{descriptiveStats}
 \alias{descriptiveStats}
-\title{Descriptive Statistics}
+\title{Descriptive Statistic}
 \usage{
 descriptiveStats(.data)
 }
 \arguments{
-\item{.data}{.data A \code{tibble} or \code{data.frame}}
+\item{.data}{A data.frame or tibble.}
 }
 \value{
-A \code{tibble}
+A tibble with descriptive statistics for all numeric variables in .data.
 }
 \description{
-Descriptive Statistics
+This function calculate descriptive statistics for numeric variables in a data frame
 }
 \examples{
 

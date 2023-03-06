@@ -1,8 +1,11 @@
-#' General description of all variables
+#' Explore a data frame or tibble
 #'
-#' @param .data  A `tibble` or `data.frame`
+#' This function explores a all variables in a data frame.
 #'
-#' @return A `tibble`
+#' @param .data A data frame or tibble to summarize.
+#'
+#' @return  A data frame with the following columns: column's data type, number of non-missing values,
+#' number of missing values, number of unique values, and the percentage of unique values.
 #'
 #' @examples
 #'

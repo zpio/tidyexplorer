@@ -2,20 +2,21 @@
 % Please edit documentation in R/exploreCategory.R
 \name{exploreCategory}
 \alias{exploreCategory}
-\title{Description of all categorical variables}
+\title{Explore categorical variables}
 \usage{
-exploreCategory(.data, top = 500)
+exploreCategory(.data, top = 30)
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{a data frame or tibble}
 
-\item{top}{Number of levels to return for each variable}
+\item{top}{an integer indicating the number of top levels to display (default is 30)}
 }
 \value{
 A \code{tibble}
 }
 \description{
-Description of all categorical variables
+This function explores all categorical variables calculating the frequency and ratio of each level for each variable.
+The output includes the top levels for each variable by frequency.
 }
 \examples{
 iris \%>\%

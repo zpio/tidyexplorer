@@ -2,20 +2,18 @@
 % Please edit documentation in R/plotMissing.R
 \name{plotMissing}
 \alias{plotMissing}
-\title{Visualize missing data}
+\title{Plot the Percentage of Missing Values in a Data Frame}
 \usage{
 plotMissing(.data, interactive = FALSE)
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A data frame or tibble.}
 
-\item{interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
-}
-\value{
-A static \code{ggplot2} plot or an interactive \code{plotly} plot
+\item{interactive}{A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 }
 \description{
-Visualize missing data
+This function plots the percentage of missing values for each variable in the data frame.
+The output is a bar chart with the variables sorted in descending order based on the percentage of missing values.
 }
 \examples{
 

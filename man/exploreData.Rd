@@ -2,18 +2,19 @@
 % Please edit documentation in R/exploreData.R
 \name{exploreData}
 \alias{exploreData}
-\title{General description of all variables}
+\title{Explore a data frame or tibble}
 \usage{
 exploreData(.data)
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A data frame or tibble to summarize.}
 }
 \value{
-A \code{tibble}
+A data frame with the following columns: column's data type, number of non-missing values,
+number of missing values, number of unique values, and the percentage of unique values.
 }
 \description{
-General description of all variables
+This function explores a all variables in a data frame.
 }
 \examples{
 
