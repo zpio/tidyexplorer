@@ -12,6 +12,7 @@
 #' @param facet_wrap_var (Optional) A categorical variable to use for faceting the plot.
 #' @param facet_ncol An integer indicating the number of columns to use for facet_wrap. Defaults to 2.
 #' @param scales A string indicating the type of scaling to use in facet (default: "free").
+#' @param title A string indicating the title.
 #' @param linewidth The width of the line.
 #'
 #' @return A ggplot object
@@ -68,6 +69,7 @@ line_chart <- function(data, x, y,
                        facet_wrap_var = NULL,
                        facet_ncol = 2,
                        scales = "free",
+                       title = "Plot Time Series",
                        linewidth = 1){
 
   if (!is.data.frame(data)) {
@@ -196,7 +198,7 @@ line_chart <- function(data, x, y,
     ggplot2::scale_y_continuous(
       labels = scales::label_number(scale_cut = scales::cut_short_scale())
     ) +
-    ggplot2::labs(x="", title = "Plot Time Series") +
+    ggplot2::labs(x="", title = title) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
       legend.position = "none",

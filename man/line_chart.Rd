@@ -14,6 +14,7 @@ line_chart(
   facet_wrap_var = NULL,
   facet_ncol = 2,
   scales = "free",
+  title = "Plot Time Series",
   linewidth = 1
 )
 }
@@ -35,6 +36,8 @@ line_chart(
 \item{facet_ncol}{An integer indicating the number of columns to use for facet_wrap. Defaults to 2.}
 
 \item{scales}{A string indicating the type of scaling to use in facet (default: "free").}
+
+\item{title}{A string indicating the title.}
 
 \item{linewidth}{The width of the line.}
 }
