@@ -11,8 +11,8 @@
 #' @param alpha_point A numeric value indicating the transparency of the bubbles.
 #' @param color_point A character string indicating the color of the points.
 #' @param stroke_point A numeric value indicating the width of the stroke of the points.
-#' @param legend.position A character string indicating the position of the legend in the plot.
-#' @param title_plot A character string indicating the title of the plot.
+#' @param legend_position A character string indicating the position of the legend in the plot.
+#' @param title A character string indicating the title of the plot.
 #' @param interactive A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
@@ -66,8 +66,8 @@ bubble_chart <- function(data, x, y,
                          alpha_point = 0.8,
                          color_point = "black",
                          stroke_point = 0.2,
-                         legend.position = "right",
-                         title_plot = "",
+                         legend_position = "right",
+                         title = "",
                          interactive=FALSE){
 
   x  <- rlang::enquo(x)
@@ -79,7 +79,7 @@ bubble_chart <- function(data, x, y,
     ggplot2::ggplot(ggplot2::aes(x = !!x, y= !!y, size= !!size, fill = !!fill)) +
     ggplot2::geom_point(alpha = alpha_point, shape = 21, color = color_point, stroke = stroke_point) +
     ggplot2::scale_size(range = scale_size_range, guide = "none")+
-    ggplot2::labs(title = title_plot)+
+    ggplot2::labs(title = title)+
     ggthemes::scale_fill_tableau()+
     ggplot2::theme_minimal()+
     ggplot2::theme(
@@ -90,7 +90,7 @@ bubble_chart <- function(data, x, y,
         size = 12, face="bold", hjust = 0.5, color = "grey30",
         margin = ggplot2::margin(b=10)
       ),
-      legend.position = legend.position,
+      legend.position = legend_position,
       legend.text = ggplot2::element_text(size = 9, color = "gray30"),
       legend.title = ggplot2::element_text(size = 11, color = "gray30"),
       plot.background = ggplot2::element_rect(fill = "white", color = "white"),

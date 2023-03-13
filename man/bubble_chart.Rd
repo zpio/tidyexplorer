@@ -14,8 +14,8 @@ bubble_chart(
   alpha_point = 0.8,
   color_point = "black",
   stroke_point = 0.2,
-  legend.position = "right",
-  title_plot = "",
+  legend_position = "right",
+  title = "",
   interactive = FALSE
 )
 }
@@ -38,9 +38,9 @@ bubble_chart(
 
 \item{stroke_point}{A numeric value indicating the width of the stroke of the points.}
 
-\item{legend.position}{A character string indicating the position of the legend in the plot.}
+\item{legend_position}{A character string indicating the position of the legend in the plot.}
 
-\item{title_plot}{A character string indicating the title of the plot.}
+\item{title}{A character string indicating the title of the plot.}
 
 \item{interactive}{A boolean value that specifies whether the plot should be returned static (ggplot2) or interactive (Plotly).}
 }
