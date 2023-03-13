@@ -39,7 +39,7 @@ bar_chart(
 
 \item{fill}{A string indicating the color to fill bars when fill_var is not provided}
 
-\item{orientation}{A string indicating the orientation of the chart. Can be "h" for horizontal or "v" for vertical.}
+\item{orientation}{A string indicating the orientation of the chart. Can be "h" for horizontal or "v" for vertical. (Default "h").}
 
 \item{position}{A string indicating the position of the bars. Can be "dodge", "stack", or "fill".}
 

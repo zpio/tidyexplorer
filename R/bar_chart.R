@@ -11,7 +11,7 @@
 #' @param label_size An integer specifying the size of the label text when label_var is provide.
 #' @param title A string indicating the title.
 #' @param fill A string indicating the color to fill bars when fill_var is not provided
-#' @param orientation A string indicating the orientation of the chart. Can be "h" for horizontal or "v" for vertical.
+#' @param orientation A string indicating the orientation of the chart. Can be "h" for horizontal or "v" for vertical. (Default "h").
 #' @param position A string indicating the position of the bars. Can be "dodge", "stack", or "fill".
 #' @param scale_axis_pct A boolean value indicating whether the y-axis should be scaled by percent.
 #' @param legend_position A string indicating the position of the legend. Can be "right", "left", "top", or "bottom".
