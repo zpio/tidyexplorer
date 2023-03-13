@@ -13,18 +13,19 @@
 #' @param facet_ncol An integer indicating the number of columns to use for facet_wrap. Defaults to 2.
 #' @param scales A string indicating the type of scaling to use in facet (default: "free").
 #' @param title A string indicating the title.
-#' @param linewidth The width of the line.
+#' @param linewidth An integer indicating the width of the line.
+#' @param legend_position A string indicating the position of the legend. Use "none" to hide the legend.
+#' @param highlight A string or vector of characters to be highlighted in the graph when color_var is provided
+#' @param compare a boolean indicating whether you want to compare the line with the others in gray colors when color_var and facet_wrap_var are provided
+#'
 #'
 #' @return A ggplot object
 #'
 #' @examples
 #'
 #' library(dplyr)
-#' library(gapminder)
 #'
-#' line_chart(ggplot2::economics,
-#'            x = date,
-#'            y = unemploy)
+#' line_chart(ggplot2::economics, x = date, y = unemploy)
 #'
 #' economics_long2 <-
 #'   dplyr::filter(
@@ -32,34 +33,19 @@
 #'     variable %in% c("pop", "uempmed", "unemploy")
 #'   )
 #'
-#' line_chart(economics_long2,
-#'            x = date,
-#'            y = value01,
-#'            color_var = variable)
+#' line_chart(economics_long2, x = date, y = value01, color_var = variable)
 #'
-#' line_chart(economics_long2,
-#'            x = date,
-#'            y = value01,
-#'            color_var = variable,
-#'            facet_wrap_var = variable,
-#'            facet_ncol = 2)
+#' line_chart(economics_long2, x = date, y = value01, color_var = variable,
+#'            highlight = "unemploy")
 #'
+#' line_chart(economics_long2, x = date, y = value01, color_var = variable,
+#'            facet_wrap_var = variable)
 #'
-#' multiple_line_df <- gapminder::gapminder %>%
-#'   filter(country %in% c("China", "United States", "Ecuador", "Peru")) %>%
-#'   mutate(label = if_else(year == max(year), as.character(country), NA_character_))
+#' line_chart(economics_long2, x = date, y = value01, color_var = variable,
+#'            facet_wrap_var = variable,  highlight = "unemploy",  scales = "fixed")
 #'
-#'
-#' line_chart(multiple_line_df,
-#'            x = year,
-#'            y = lifeExp,
-#'            color_var = country)
-#'
-#' line_chart(multiple_line_df,
-#'            x = year,
-#'            y = lifeExp,
-#'            color_var = country,
-#'            facet_wrap_var = country)
+#' line_chart(economics_long2, x = date, y = value01, color_var = variable,
+#'            facet_wrap_var = variable, compare = TRUE)
 #'
 #' @export
 line_chart <- function(data, x, y,
@@ -68,9 +54,12 @@ line_chart <- function(data, x, y,
                        label_var = NULL,
                        facet_wrap_var = NULL,
                        facet_ncol = 2,
-                       scales = "free",
+                       scales = "free_y",
                        title = "Plot Time Series",
-                       linewidth = 1){
+                       linewidth = 1,
+                       legend_position = "none",
+                       highlight = NULL,
+                       compare = FALSE){
 
   if (!is.data.frame(data)) {
     stop(call. = FALSE, ".data is not a data-frame or tibble. Please supply a data.frame or tibble.")
@@ -86,7 +75,6 @@ line_chart <- function(data, x, y,
   pal_discrete <-
     rev(rep(ggthemes::ggthemes_data$tableau$`color-palettes`$regular$`Tableau 10`$value, 10))
 
-
   # color var
   if (!rlang::quo_is_null(color_var)){
 
@@ -97,11 +85,24 @@ line_chart <- function(data, x, y,
       stop(call. = FALSE, "Please supply a color_var with a categorical column")
     }
 
-    p1 <- ggplot2::ggplot(
-      data, ggplot2::aes(x = !!x, y = !!y, color = !!color_var)
-    ) +
-      ggplot2::geom_line(linewidth = linewidth) +
-      ggplot2::scale_color_manual(values = rev(pal_discrete))
+    if (!is.null(highlight)){
+
+      tmp <- data %>%
+        dplyr::filter(!!color_var %in% highlight)
+
+      p1 <-
+        ggplot2::ggplot(data, ggplot2::aes(x = !!x, y = !!y)) +
+        ggplot2::geom_line(ggplot2::aes(group = !!color_var), color = "lightgrey") +
+        ggplot2::geom_line(data = tmp, ggplot2::aes(color = !!color_var), linewidth = linewidth) +
+        ggplot2::scale_color_manual(values = rev(pal_discrete))
+
+    } else{
+
+      p1 <- ggplot2::ggplot(data, ggplot2::aes(x = !!x, y = !!y, color = !!color_var)) +
+        ggplot2::geom_line(linewidth = linewidth) +
+        ggplot2::scale_color_manual(values = rev(pal_discrete))
+    }
+
 
     ## Facet
     if (!rlang::quo_is_null(facet_wrap_var)){
@@ -113,8 +114,25 @@ line_chart <- function(data, x, y,
         stop(call. = FALSE, "Please supply a facet_wrap_var with a categorical column")
       }
 
-      p1 <- p1 +
-        ggplot2::facet_wrap(dplyr::vars(!!facet_wrap_var), scales = scales, ncol = facet_ncol)
+
+      if (compare){
+
+        tmp <- data %>%
+          dplyr::mutate(color_var_ = !!color_var) %>%
+          dplyr::select(-!!color_var)
+
+        p1 <-
+          ggplot2::ggplot(data, ggplot2::aes(x = !!x, y = !!y, color = !!color_var)) +
+          ggplot2::geom_line(data = tmp, ggplot2::aes(group = color_var_), color = "lightgrey") +
+          ggplot2::geom_line(linewidth = linewidth) +
+          ggplot2::scale_color_manual(values = rev(pal_discrete)) +
+          ggplot2::facet_wrap(dplyr::vars(!!facet_wrap_var), scales = scales, ncol = facet_ncol)
+
+      } else{
+
+        p1 <- p1 +
+          ggplot2::facet_wrap(dplyr::vars(!!facet_wrap_var), scales = scales, ncol = facet_ncol)
+      }
 
     } else{
 
@@ -133,7 +151,13 @@ line_chart <- function(data, x, y,
 
       p1 <- p1 +
         ggrepel::geom_text_repel(
-          ggplot2::aes(label = !!label_var)
+          ggplot2::aes(label = !!label_var),
+          max.overlaps = 20
+        ) +
+        ggplot2::guides (
+          color = ggplot2::guide_legend(
+            override.aes = ggplot2::aes(label = "")
+          )
         )
 
     } else{
@@ -155,12 +179,43 @@ line_chart <- function(data, x, y,
 
       } else{
 
-        p1 <- p1 +
-          ggrepel::geom_text_repel(
-            data = data_label,
-            ggplot2::aes(label = label),
-            nudge_x = 2, size = 3, na.rm = TRUE
-          )
+        if (!is.null(highlight)){
+
+          tmp <- data %>%
+            dplyr::filter(!!color_var %in% highlight)
+
+          data_label <- tmp %>%
+            dplyr::mutate(label = ifelse(!!x == max(!!x), as.character(!!color_var), NA_character_))
+
+          p1 <- p1 +
+            ggrepel::geom_text_repel(
+              data = data_label,
+              ggplot2::aes(label = label),
+              nudge_x = 2, size = 3, na.rm = TRUE,
+              max.overlaps = 20
+            ) +
+            ggplot2::guides (
+              color = ggplot2::guide_legend(
+                override.aes = ggplot2::aes(label = "")
+              )
+            )
+
+        } else{
+
+          p1 <- p1 +
+            ggrepel::geom_text_repel(
+              data = data_label,
+              ggplot2::aes(label = label),
+              nudge_x = 2, size = 3, na.rm = TRUE,
+              max.overlaps = 20
+            ) +
+            ggplot2::guides (
+              color = ggplot2::guide_legend(
+                override.aes = ggplot2::aes(label = "")
+              )
+            )
+        }
+
       }
 
     }
@@ -201,7 +256,7 @@ line_chart <- function(data, x, y,
     ggplot2::labs(x="", title = title) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
-      legend.position = "none",
+      legend.position = legend_position,
       panel.grid.minor = ggplot2::element_blank(),
       axis.text = ggplot2::element_text(size = 8, color = "gray30"),
       axis.title = ggplot2::element_text(size = 11, hjust = 1, color = "gray30"),

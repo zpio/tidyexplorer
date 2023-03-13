@@ -13,9 +13,12 @@ line_chart(
   label_var = NULL,
   facet_wrap_var = NULL,
   facet_ncol = 2,
-  scales = "free",
+  scales = "free_y",
   title = "Plot Time Series",
-  linewidth = 1
+  linewidth = 1,
+  legend_position = "none",
+  highlight = NULL,
+  compare = FALSE
 )
 }
 \arguments{
@@ -39,7 +42,13 @@ line_chart(
 
 \item{title}{A string indicating the title.}
 
-\item{linewidth}{The width of the line.}
+\item{linewidth}{An integer indicating the width of the line.}
+
+\item{legend_position}{A string indicating the position of the legend. Use "none" to hide the legend.}
+
+\item{highlight}{A string or vector of characters to be highlighted in the graph when color_var is provided}
+
+\item{compare}{a boolean indicating whether you want to compare the line with the others in gray colors when color_var and facet_wrap_var are provided}
 }
 \value{
 A ggplot object
@@ -50,11 +59,8 @@ Plot Line Chart in ggplot2
 \examples{
 
 library(dplyr)
-library(gapminder)
 
-line_chart(ggplot2::economics,
-           x = date,
-           y = unemploy)
+line_chart(ggplot2::economics, x = date, y = unemploy)
 
 economics_long2 <-
   dplyr::filter(
@@ -62,33 +68,18 @@ economics_long2 <-
     variable \%in\% c("pop", "uempmed", "unemploy")
   )
 
-line_chart(economics_long2,
-           x = date,
-           y = value01,
-           color_var = variable)
+line_chart(economics_long2, x = date, y = value01, color_var = variable)
 
-line_chart(economics_long2,
-           x = date,
-           y = value01,
-           color_var = variable,
-           facet_wrap_var = variable,
-           facet_ncol = 2)
+line_chart(economics_long2, x = date, y = value01, color_var = variable,
+           highlight = "unemploy")
 
+line_chart(economics_long2, x = date, y = value01, color_var = variable,
+           facet_wrap_var = variable)
 
-multiple_line_df <- gapminder::gapminder \%>\%
-  filter(country \%in\% c("China", "United States", "Ecuador", "Peru")) \%>\%
-  mutate(label = if_else(year == max(year), as.character(country), NA_character_))
+line_chart(economics_long2, x = date, y = value01, color_var = variable,
+           facet_wrap_var = variable,  highlight = "unemploy",  scales = "fixed")
 
-
-line_chart(multiple_line_df,
-           x = year,
-           y = lifeExp,
-           color_var = country)
-
-line_chart(multiple_line_df,
-           x = year,
-           y = lifeExp,
-           color_var = country,
-           facet_wrap_var = country)
+line_chart(economics_long2, x = date, y = value01, color_var = variable,
+           facet_wrap_var = variable, compare = TRUE)
 
 }
