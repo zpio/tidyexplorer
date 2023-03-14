@@ -31,21 +31,21 @@ bar_chart(
 
 \item{label_var}{(Optional) A variable used to label the bars.}
 
-\item{label_color}{A string indicating the color of the label text when label_var is provide.}
+\item{label_color}{A string indicating the color of the label text when label_var is provide. (Default: "black").}
 
-\item{label_size}{An integer specifying the size of the label text when label_var is provide.}
+\item{label_size}{An integer specifying the size of the label text when label_var is provide. (Default: 3).}
 
 \item{title}{A string indicating the title.}
 
-\item{fill}{A string indicating the color to fill bars when fill_var is not provided}
+\item{fill}{A string indicating the color to fill bars when fill_var is not provided. (Default: "#4E79A7").}
 
 \item{orientation}{A string indicating the orientation of the chart. Can be "h" for horizontal or "v" for vertical. (Default "h").}
 
-\item{position}{A string indicating the position of the bars. Can be "dodge", "stack", or "fill".}
+\item{position}{A string indicating the position of the bars. Can be "dodge", "stack", or "fill". (Default "dodge").}
 
-\item{scale_axis_pct}{A boolean value indicating whether the y-axis should be scaled by percent.}
+\item{scale_axis_pct}{A boolean value indicating whether the y-axis should be scaled by percent. (Default FALSE).}
 
-\item{legend_position}{A string indicating the position of the legend. Can be "right", "left", "top", or "bottom".}
+\item{legend_position}{A string indicating the position of the legend. Can be "right", "left", "top", or "bottom". (Default "right").}
 }
 \value{
 A ggplot object

@@ -7,14 +7,14 @@
 #' @param y A numeric variable that represents the y-axis.
 #' @param fill_var (Optional) A categorical variable to group and fill the plot.
 #' @param label_var (Optional) A variable used to label the bars.
-#' @param label_color A string indicating the color of the label text when label_var is provide.
-#' @param label_size An integer specifying the size of the label text when label_var is provide.
+#' @param label_color A string indicating the color of the label text when label_var is provide. (Default: "black").
+#' @param label_size An integer specifying the size of the label text when label_var is provide. (Default: 3).
 #' @param title A string indicating the title.
-#' @param fill A string indicating the color to fill bars when fill_var is not provided
+#' @param fill A string indicating the color to fill bars when fill_var is not provided. (Default: "#4E79A7").
 #' @param orientation A string indicating the orientation of the chart. Can be "h" for horizontal or "v" for vertical. (Default "h").
-#' @param position A string indicating the position of the bars. Can be "dodge", "stack", or "fill".
-#' @param scale_axis_pct A boolean value indicating whether the y-axis should be scaled by percent.
-#' @param legend_position A string indicating the position of the legend. Can be "right", "left", "top", or "bottom".
+#' @param position A string indicating the position of the bars. Can be "dodge", "stack", or "fill". (Default "dodge").
+#' @param scale_axis_pct A boolean value indicating whether the y-axis should be scaled by percent. (Default FALSE).
+#' @param legend_position A string indicating the position of the legend. Can be "right", "left", "top", or "bottom". (Default "right").
 #'
 #' @return A ggplot object
 #'
@@ -254,7 +254,7 @@ bar_chart <- function(data, x, y,
         p <- p +
           ggplot2::geom_text(
             ggplot2::aes(label=!!label_var),
-            position = ggplot2::position_stack(vjust = 0.5),
+            position = ggplot2::position_fill(vjust = 0.5),
             color = label_color, size = label_size
           )
 
@@ -268,7 +268,7 @@ bar_chart <- function(data, x, y,
                 ifelse(abs(!!label_var) >= 1e3, paste0(round(!!label_var/1e3, 1), "K"), round(!!label_var,3))
               )
             ),
-            position = ggplot2::position_stack(vjust = 0.5),
+            position = ggplot2::position_fill(vjust = 0.5),
             color = label_color, size = label_size
           )
       }
@@ -396,3 +396,4 @@ bar_chart <- function(data, x, y,
   return(p)
 
 }
+
